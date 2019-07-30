@@ -11,11 +11,17 @@ namespace Template
     public class ControlSystem : CrestronControlSystem, ITrace
     {
         #region System components
+        UserInterface userInterface;
         #endregion
 
         #region Properties
         public bool TraceEnabled { get; set; }
         public string TraceName { get; set; }
+        #endregion
+
+        #region Constants
+        const uint PanelIPID = 0x03;
+        const string PanelProjectName = "TestSystem";
         #endregion
 
         #region Initialization
@@ -40,6 +46,10 @@ namespace Template
                 // trace defaults
                 this.TraceEnabled = true;
                 this.TraceName = this.GetType().Name;
+
+                // user interface component
+                Trace("InitializeSystem() loading user interface component.");
+                userInterface = new UserInterface(this, PanelIPID, PanelProjectName);
             }
             catch (Exception ex)
             {

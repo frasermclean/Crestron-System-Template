@@ -8,8 +8,32 @@ using Crestron.SimplSharpPro.DeviceSupport;
 using Crestron.SimplSharpPro.UI;
 using Template.Interfaces;
 
-namespace Template.UserInterface
+namespace Template.UserInterfaceHelper
 {
+    public static class UserInterfaceHelper
+    {
+        public static void SetDigitalJoin(BasicTriList device, uint number, bool value)
+        {
+            device.BooleanInput[number].BoolValue = value;
+        }
+        public static void ToggleDigitalJoin(BasicTriList device, uint number)
+        {
+            device.BooleanInput[number].BoolValue = !device.BooleanInput[number].BoolValue;
+        }
+        public static void PulseDigitalJoin(BasicTriList device, uint number)
+        {
+            device.BooleanInput[number].Pulse();
+        }
+        public static void SetAnalogJoin(BasicTriList device, uint number, ushort value)
+        {
+            device.UShortInput[number].UShortValue = value;
+        }
+        public static void SetSerialJoin(BasicTriList device, uint number, string value)
+        {
+            device.StringInput[number].StringValue = value;
+        }
+    }
+
     abstract class UserInterfaceComponent : ITrace
     {
         #region Properties
